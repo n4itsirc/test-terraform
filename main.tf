@@ -14,11 +14,22 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+variable "instance_name_var" {
+  description = "Value of the Name tag for the EC2 instance"
+  type        = string
+  default     = "ExampleInstanceVarName"
+}
+
 resource "aws_instance" "app_server" {
   ami           = "ami-02e136e904f3da870"
   instance_type = "t2.micro"
 
   tags = {
-    Name = "MiPrimerTerraformCS"
+    Name = var.instance_name_var
   }
+}
+
+output "instance_public_ip" {
+  description = "Public IP address of the EC2 instance"
+  value       = aws_instance.app_server.public_ip
 }
