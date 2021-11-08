@@ -1,7 +1,9 @@
-resource "aws_instance" "app_server" {
-  ami           = "ami-02e136e904f3da870"
-  instance_type = "t2.micro"
-  tags = {
-    Name = var.instance_name_var
-  }
+module "modulo_instancia" {
+  source = "github.com/n4itsirc/mi_primer_modulo_de_la_vida"
+
+  instance_name_var = "MyNewInstanceCS"
+}
+
+output "programa_principal" {
+  value       =  module.modulo_instancia.instance_public_ip
 }
